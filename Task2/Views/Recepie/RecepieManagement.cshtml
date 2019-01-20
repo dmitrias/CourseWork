@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "RecepieManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Localizer["RecepieManagement"]</h2>
+
+@model Task2.ViewModels.PageIndexViewModel
+@addTagHelper "*, Task2"
+<style>
+
+    body {
+        background-color: #edeef0;
+    }
+
+    table {
+        margin-top: 5%;
+        background-color: white;
+    }
+
+    tr {
+        width: auto;
+        border-color: #edeef0;
+    }
+
+    .form-control {
+        margin-top: 3%;
+    }
+</style>
+    <a asp-area="" asp-controller="Recepie" asp-action="CreateRecepie" class="btn form-control btn-success">@Localizer["CreateRecepie"]</a>
+<table class="table">
+    @foreach (var recepie in Model.EnumRecepie)
+    {
+
+        <tr>
+            <td align="center">
+                <div class="control-label">
+                    <a asp-action="ViewRecepie" asp-route-id="@recepie.Id"><h3>@recepie.Caption</h3></a>
+                </div>
+            </td>
+            <td>
+                <div class="control-label">
+                    Created: @recepie.DateOfLastUpdate
+                </div>
+            </td>
+
+            @if (User.IsInRole("admin"))
+            {
+
+                <td>
+                    <a asp-action="ViewRecepie" asp-route-id="@recepie.Id" class="btn btn-sm btn-success">
+                        @Localizer["View"]
+                    </a>
+                </td>
+
+                <td>
+                    <form asp-action="EditRecepie" asp-route-id="@recepie.Id" method="post">
+                        <button type="submit" class="btn btn-sm btn-warning">
+                            @Localizer["Edit"]
+                        </button>
+                    </form>
+                </td>
+
+                <td>
+                    <form asp-action="DeleteRecepie" asp-route-id="@recepie.Id" method="post">
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            @Localizer["Delete"]
+                        </button>
+                    </form>
+                </td>
+
+            }
+        </tr>
+
+    }
+</table>
+<page-link page-model="Model.PageViewModel" page-action="RecepieManagement"></page-link>

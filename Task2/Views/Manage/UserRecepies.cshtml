@@ -1,0 +1,77 @@
+﻿@model Task2.Models.ManageViewModels.UsersRecepiesViewModel
+@{
+    ViewData.AddActivePage(ManageNavPages.UserRecepies);
+}
+<style>
+
+
+    body {
+        background-color: #edeef0;
+    }
+
+    table {
+        margin-top: 5%;
+        background-color: white;
+    }
+
+    tr {
+        width: auto;
+        border-color: #edeef0;
+    }
+
+    .form-control {
+        margin-top: 3%;
+    }
+
+    form {
+        display: inline-block;
+    }
+</style>
+<h3 class="text-center">@Model.UserCreator.UserName 's recipes</h3>
+<a asp-area="" asp-controller="Recepie" asp-action="CreateRecepie" class="btn form-control btn-success">Create Recepie</a>
+@if (Model.UserRecepie != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    Caption
+                </td>
+                <th>
+                    Category
+                </th>
+                <th>
+                    DateOfLastUpdating
+                </th>
+            </tr>
+        </thead>
+        @foreach (var Recepie in Model.UserRecepie)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Recepie" asp-action="ViewRecepie" asp-route-id="@Recepie.Id">@Recepie.Caption</a>
+                </td>
+                <th>
+                    @Recepie.Category
+                </th>
+                <th>
+                    @Recepie.DateOfLastUpdate
+                </th>
+                <td width="20%">
+                    <div class="btn-group">
+                        <form asp-controller="Recepie" asp-action="EditRecepie" asp-route-id="@Recepie.Id" method="get" class="btn-group">
+                            <button type="submit" class="btn btn-toolbar btn-primary">
+                                Edit
+                            </button>
+                        </form>
+                        <form asp-controller="Recepie" asp-action="DeleteRecepie" asp-route-id="@Recepie.Id" method="post" class="btn-toobar">
+                            <button type="submit" class="btn btn-toolbar btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}

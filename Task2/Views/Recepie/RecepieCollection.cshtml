@@ -1,0 +1,75 @@
+﻿@model Task2.ViewModels.PageIndexViewModel
+@addTagHelper "*, Task2"
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+
+<h2 align="center">@Localizer["Head"]</h2>
+<style>
+
+    body {
+        background-color: #edeef0;
+    }
+
+    table {
+        margin-top: 5%;
+        background-color: white;
+    }
+
+    .control-label {
+        align-self: center;
+    }
+
+    tr {
+        border-style: hidden;
+        width: auto;
+    }
+
+    .form-control {
+        margin-top: 3%;
+    }
+
+    img {
+        width: 80%;
+        margin-bottom: 3%;
+    }
+
+    p {
+        margin-bottom: 3%;
+    }
+</style>
+
+@foreach (var recepie in Model.EnumRecepie)
+{
+    <table class="table">
+        <tr>
+            <td align="center">
+                <div class="control-label">
+                    <a asp-action="ViewRecepie" asp-route-id="@recepie.Id"><h2>@recepie.Caption</h2></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <img src="@recepie.ImageURL">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="description">
+                    @Html.Raw(recepie.Text)
+                </div>
+                <a asp-action="ViewRecepie" asp-route-id="@recepie.Id">@Localizer["ShowMore"]</a>
+
+                @if (User.IsInRole("admin"))
+                {
+                    <form asp-action="DeleteRecepie" asp-route-id="@recepie.Id" method="post">
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            @Localizer["Delete"]
+                        </button>
+                    </form>
+                }
+            </td>
+        </tr>
+    </table>
+}
+<page-link page-model="Model.PageViewModel" page-action="RecepieCollection"></page-link>
