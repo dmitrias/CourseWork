@@ -1,8 +1,11 @@
-﻿@model Task2.Models.ManageViewModels.UsersRecepiesViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+@model Task2.Models.ManageViewModels.UsersRecepiesViewModel
 @{
     ViewData.AddActivePage(ManageNavPages.UserRecepies);
 }
 <style>
+
 
 
     body {
@@ -27,21 +30,21 @@
         display: inline-block;
     }
 </style>
-<h3 class="text-center">@Model.UserCreator.UserName 's recipes</h3>
-<a asp-area="" asp-controller="Recepie" asp-action="CreateRecepie" class="btn form-control btn-success">Create Recepie</a>
+<h3 class="text-center">@Localizer["recep"] @Model.UserCreator.UserName</h3>
+<a asp-area="" asp-controller="Recepie" asp-action="CreateRecepie" class="btn form-control btn-success">@Localizer["Create Recepie"]</a>
 @if (Model.UserRecepie != null)
 {
     <table class="table">
         <thead>
             <tr>
                 <td>
-                    Caption
+                    @Localizer["Caption"]
                 </td>
                 <th>
-                    Category
+                    @Localizer["Category"]
                 </th>
                 <th>
-                    DateOfLastUpdating
+                    @Localizer["DateOfLastUpdating"]
                 </th>
             </tr>
         </thead>
@@ -61,12 +64,12 @@
                     <div class="btn-group">
                         <form asp-controller="Recepie" asp-action="EditRecepie" asp-route-id="@Recepie.Id" method="get" class="btn-group">
                             <button type="submit" class="btn btn-toolbar btn-primary">
-                                Edit
+                                @Localizer["Edit"]
                             </button>
                         </form>
                         <form asp-controller="Recepie" asp-action="DeleteRecepie" asp-route-id="@Recepie.Id" method="post" class="btn-toobar">
                             <button type="submit" class="btn btn-toolbar btn-danger">
-                                Delete
+                               @Localizer["Delete"]
                             </button>
                         </form>
                     </div>

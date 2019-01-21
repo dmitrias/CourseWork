@@ -129,4 +129,7 @@
   <data name="Two-factor authentication" xml:space="preserve">
     <value>Двухфакторная аутентификация</value>
   </data>
+  <data name="User Recipes" xml:space="preserve">
+    <value>Рецепты пользователя</value>
+  </data>
 </root>
